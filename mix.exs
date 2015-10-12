@@ -14,7 +14,7 @@ defmodule TestMe.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger,:ranch],
+    [applications: [:logger,:ranch,:rstar,:rstar],
      mod: {TestMe, []}]
   end
 
@@ -31,7 +31,7 @@ defmodule TestMe.Mixfile do
     [
 			{:ranch,"~> 1.1"},
 			{:message_pack, "~> 0.2.0"},
-			{:rstar,git: "https://github.com/armon/erl-rstar.git"}
+			{:rstar,git: "https://github.com/armon/erl-rstar.git"},
 		]
   end
 end
