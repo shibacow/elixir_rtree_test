@@ -11,7 +11,8 @@ defmodule TestMe do
     children = [
       # Define workers and child supervisors to be supervised
       # worker(TestMe.Worker, [arg1, arg2, arg3])
-			worker(TestMe.Worker, [])
+			worker(TestMe.Worker, []),
+			worker(RTreeServer,[])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
