@@ -12,7 +12,9 @@ defmodule TestMe do
       # Define workers and child supervisors to be supervised
       # worker(TestMe.Worker, [arg1, arg2, arg3])
 			worker(TestMe.Worker, []),
-			worker(RTreeServer,[])
+			worker(RTreeServer,[]),
+			worker(UserProxy,[])
+
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
@@ -23,6 +25,7 @@ defmodule TestMe do
 end
 defmodule TestMe.Worker do
   def start_link do
+		Logger.info "test me worker start"
     opts = [port: 8000]
     {:ok, _} = :ranch.start_listener(:Testme, 1000, :ranch_tcp, opts, TestMe.Handler, [])
   end
@@ -40,6 +43,11 @@ defmodule TestMe.Handler do
   end
 	
   def loop(ref,socket, transport) do
+		receive do
+			{:send,data}->
+				transport.send(socket,data)
+				loop(ref,socket,transport)
+		end
     case transport.recv(socket, 0, 50_000) do
       {:ok, data} ->
 				sz = :ranch_server.count_connections(ref)

@@ -2,7 +2,7 @@ require Logger
 defmodule RTreeServer do
 	use GenServer
 	def start_link do
-		Logger.info "init"
+		Logger.info "init rtree"
 		GenServer.start_link(__MODULE__,{HashDict.new,:rstar.new(2)},name: :rtree)
 	end
 	def store(uid,geo) do
